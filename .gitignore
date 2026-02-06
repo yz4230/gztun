@@ -1,0 +1,11 @@
+*.cmd
+*.ko
+*.mod
+*.mod.c
+*.mod.o
+*.o
+*.order
+*.symvers
+/.cache/
+/.vscode/
+compile_commands.json
