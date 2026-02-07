@@ -1,0 +1,32 @@
+---
+- hosts: vm
+  become: true
+  vars:
+    kernel_version: "6.17.0-14-generic"
+  tasks:
+    - name: Ensure kernel version
+      apt:
+        name: "linux-image-{{ kernel_version }}"
+        state: present
+        update_cache: yes
+      register: kernel_upgrade
+
+    - name: Reboot to apply new kernel
+      reboot:
+        reboot_timeout: 300
+      when: kernel_upgrade.changed
+
+    - name: Install packages
+      apt:
+        name:
+          - "build-essential"
+          - "linux-headers-{{ kernel_version }}"
+        state: present
+        update_cache: yes
+
+    - name: Install pwru
+      shell: |
+        wget https://github.com/cilium/pwru/releases/download/v1.0.11/pwru-linux-amd64.tar.gz
+        tar xvf pwru-linux-amd64.tar.gz
+        mv pwru /usr/local/bin/pwru
+        rm pwru-linux-amd64.tar.gz

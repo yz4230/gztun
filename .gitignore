@@ -9,4 +9,5 @@
 /.cache/
 /.vagrant/
 /.vscode/
+/ssh_config
 compile_commands.json
