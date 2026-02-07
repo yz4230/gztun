@@ -2,4 +2,4 @@
 set -euxo pipefail
 
 vagrant up
-vagrant ssh-config --host vm >ssh-config
+vagrant ssh-config --host vm >ssh_config
